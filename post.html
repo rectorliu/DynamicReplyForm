@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+    p{margin: 5px 0;}
+        .comment-container{list-style: none; width: 300px;}
+        .comment-container li.comment-item{ display: block; position: relative; margin: 0;}
+        .comment-reply{display: none;position: absolute; right: 0; top:0; cursor: pointer;}
+        .comment-container li:hover .comment-reply{display: inline-block;}
+        .comment-reply-form .reply-content{width: 100%;border-radius: 3px;min-height: 10px;max-height: 132px;overflow: hidden;overflow-wrap: break-word;height:20px;padding: 5px 5px;}
+        .btn-submit-reply{cursor: pointer;}
+    </style>
+    <script src="/assets/jquery-3.3.1.js"></script>
+    <script src="/assets/autosize.min.js"></script>
+</head>
+<body>
+    <div class="comment-container">
+        <h3>Comments</h3>
+        <ul class="comment-container">
+            <li class="comment-item" data-pid="1" data-cid="1">
+                <p>comment comment...</p>
+                <a class="comment-reply">回复</a>
+            </li>
+            <li class="comment-item" data-pid="2" data-cid="2">
+                <p>comment comment 2...</p>
+                <a class="comment-reply">回复</a>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $(".comment-reply").on("click",function(){
+                var $comment = $(this).closest("li.comment-item");
+                if($comment.find(".comment-reply-form").length>0){
+                    
+                }else{
+                    $comment.append('<div class="comment-reply-form"><textarea class="reply-content" rows="1"></textarea><a class="btn-submit-reply">添加回复</a></div>');
+                    autosize($('.reply-content'));
+                }
+                $comment.find(".comment-reply-form .reply-content").focus();
+            });
+
+            $("body").on("click",".btn-submit-reply",function(){
+                var $comment = $(this).closest("li.comment-item");
+                var data = {
+                    postId:$comment.data("pid"),
+                    parentCommentId:$comment.data("cid")
+                };
+                alert(JSON.stringify(data));
+            });
+
+            // $("body").on('input',".reply-content", function() {
+            //     var scroll_height = $(".reply-content").get(0).scrollHeight;
+
+            //     $(".reply-content").css('height', scroll_height + 'px');
+            // });
+        });
+    </script>
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>
